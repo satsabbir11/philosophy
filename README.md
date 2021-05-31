@@ -1,0 +1,3 @@
+# philosophy theme
+
+wordpress theme
