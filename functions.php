@@ -10,7 +10,6 @@
 
 function philosophy_theme_setup()
 {
-
     load_theme_textdomain("philosophy1");
     add_theme_support("post-thumbnails");
     add_theme_support("title-tag");
