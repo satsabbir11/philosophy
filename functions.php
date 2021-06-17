@@ -19,6 +19,7 @@ function philosophy_theme_setup()
 
     register_nav_menu("topmenu",__("Top Menu","philosophy"));
 }
+
 add_action("after_setup_theme", "philosophy_theme_setup");
 
 function philosophy_assets()
