@@ -42,20 +42,6 @@ function philosophy_assets()
 
 add_action( "wp_enqueue_scripts", "philosophy_assets" );
 
-function philosophy_menu_item_class( $classes, $item, $args ) {
-
-    if ( 'topmenu' === $args->theme_location ) {
-        $contains = (bool) preg_match('/class="[^"]*\bmenu-item-has-children\b[^"]*"/', $html);
-        if(!$contains)
-        {
-            $classes[] = 'has-children';
-        }
-    }
-
-    return $classes;
-}
-add_action( 'nav_menu_css_class', 'philosophy_menu_item_class', 10, 3 );
-
 
 
 
