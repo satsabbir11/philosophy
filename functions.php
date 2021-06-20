@@ -19,6 +19,7 @@ function philosophy_theme_setup()
     add_editor_style("/assets/css/editor-style.css");
 
     register_nav_menu("topmenu",__("Top Menu","philosophy"));
+
 }
 
 add_action("after_setup_theme", "philosophy_theme_setup");
@@ -40,3 +41,37 @@ function philosophy_assets()
 }
 
 add_action( "wp_enqueue_scripts", "philosophy_assets" );
+
+function philosophy_menu_item_class( $classes, $item, $args ) {
+
+    if ( 'topmenu' === $args->theme_location ) {
+        $contains = (bool) preg_match('/class="[^"]*\bmenu-item-has-children\b[^"]*"/', $html);
+        if(!$contains)
+        {
+            $classes[] = 'has-children';
+        }
+    }
+
+    return $classes;
+}
+add_action( 'nav_menu_css_class', 'philosophy_menu_item_class', 10, 3 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
