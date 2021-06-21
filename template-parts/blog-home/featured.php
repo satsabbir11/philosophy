@@ -1,24 +1,51 @@
+<?php
+$philosophy_fp = new WP_Query(
+     array(
+             'meta_key'       => 'featured',
+             'meta_value'     => '1',
+             'posts_per_page' =>  3
+     )
+);
+
+$post_data = array();
+while($philosophy_fp->have_posts())
+{
+    $philosophy_fp->the_post();
+    $post_data[]=array(
+         "title" => get_the_title(),
+         "date"  => get_the_date(),
+        "thumbnail" => get_the_post_thumnail_url(get_the_ID(),"large"),
+        "author" => get_the_author_meta("display_name"),
+        "author_avatar" => get_avatar_url(get_the_author_meta("ID"))
+    );
+}
+
+if($philosophy_fp->post_count>1):
+
+?>
 <div class="pageheader-content row">
             <div class="col-full">
 
                 <div class="featured">
 
                     <div class="featured__column featured__column--big">
-                        <div class="entry" style="background-image:url('<?php echo get_template_directory_uri(); ?>/assets/images/thumbs/featured/featured-guitarman.jpg');">
+                        <div class="entry" style="background-image:url('<?php echo esc_url($post_data[0]['thumbnail']) ?>');">
 
                             <div class="entry__content">
                                 <span class="entry__category"><a href="#0">Music</a></span>
 
-                                <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
+                                <h1><a href="#0" title="">
+                                        <?php echo esc_html($post_data[0]['title']); ?>
+                                    </a></h1>
 
                                 <div class="entry__info">
                                     <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="<?php echo get_template_directory_uri(); ?>/assets/images/avatars/user-03.jpg" alt="">
+                                        <img class="avatar" src="<?php echo esc_url($post_data[0]['author_avatar']); ?>"
                                     </a>
 
                                     <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 29, 2017</li>
+                                        <li><a href="#0"><?php echo esc_html($post_data[0]['author']); ?></a></li>
+                                        <li><?php echo esc_html($post_data[0]['date']); ?></li>
                                     </ul>
                                 </div>
                             </div> <!-- end entry__content -->
@@ -75,3 +102,5 @@
 
             </div> <!-- end col-full -->
         </div> <!-- end pageheader-content row -->
+<?php
+endif;
